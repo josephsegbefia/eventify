@@ -1,10 +1,16 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Actions
 import { deleteEventAttendee, toggleEventAttendance } from '../reducers/eventReducer';
 
-const EventSignUpList = ({ eventAttendees, deleteEventAttendee, toggleEventAttendance }) => (
+const EventSignUpList = () => {
+  const eventAttendees = useSelector(selectAttendees);
+  const dispatch = useDispatch();
+
+  return (
     <div className="box">
         {
             eventAttendees && eventAttendees.length ?
@@ -30,8 +36,8 @@ const EventSignUpList = ({ eventAttendees, deleteEventAttendee, toggleEventAtten
                                     <td><span className={`has-text-${item.attending ? 'success' : 'danger'}`}>{item.attending ? "Yes" : "No"}</span></td>
                                     <td>
                                         <div className="buttons">
-                                            <button className="button is-info is-small" onClick={() => toggleEventAttendance(item.id)}>change attendance</button>
-                                            <button className="button is-danger is-small" onClick={() => deleteEventAttendee(item.id)}>delete</button>
+                                            <button className="button is-info is-small" onClick={() => dispatch(toggleEventAttendance(item.id))}>change attendance</button>
+                                            <button className="button is-danger is-small" onClick={() => dispatch(deleteEventAttendee(item.id))}>delete</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -43,18 +49,9 @@ const EventSignUpList = ({ eventAttendees, deleteEventAttendee, toggleEventAtten
             : <h2>Oh dear...looks like no one has signed up yet :(</h2>
         }
     </div>
-);
-
-const mapStateToProps = state => ({
-    eventAttendees: state.events.eventAttendees,
-});
-
-const mapDispatchToProps = {
-    deleteEventAttendee,
-    toggleEventAttendance
+  )
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EventSignUpList);
+
+
+export default EventSignUpList;
