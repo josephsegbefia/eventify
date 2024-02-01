@@ -7,7 +7,7 @@ const EventDetails = () => {
         <div className = 'media'>
           <div className = 'media-left'>
             <figure className = 'image is-96x96'>
-              <img src="https://place-puppy.com/200x200" alt="Puppy" />
+              <img src="https://placedog.net/200/200" alt="Puppy" />
             </figure>
           </div>
 
