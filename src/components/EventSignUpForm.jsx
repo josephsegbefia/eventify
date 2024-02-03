@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // Actions
 import { addEventAttendee  } from '../reducers/eventReducer';
@@ -16,9 +16,10 @@ const _baseFormFields = {
 };
 
 
-const EventSignUpForm = ({ addEventAttendee }) => {
+const EventSignUpForm = () => {
   const [signUpComplete, setSignUpComplete] = useState(false);
   const [formFields, setFormFields] = useState(_baseFormFields);
+  const dispatch = useDispatch();
 
   const handleOnChange = evt => {
     setFormFields({
@@ -29,8 +30,11 @@ const EventSignUpForm = ({ addEventAttendee }) => {
 
   const handleFormSubmit = evt => {
     evt.preventDefault();
-
-    addEventAttendee({...formFields});
+    const newEventAttendee = {
+      ...formFields,
+      attending: true,
+    }
+    dispatch(addEventAttendee(newEventAttendee));
     setSignUpComplete(true);
   };
 
@@ -112,13 +116,4 @@ const EventSignUpForm = ({ addEventAttendee }) => {
   )
 }
 
-const mapDispatchToProps = {
-  addEventAttendee
-}
-
-
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(EventSignUpForm);
+export default EventSignUpForm;
