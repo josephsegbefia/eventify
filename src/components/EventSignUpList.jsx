@@ -4,7 +4,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Actions
-import { deleteEventAttendee, toggleEventAttendance } from '../reducers/eventReducer';
+import { deleteEventAttendee, toggleEventAttendance, selectAttendees } from '../reducers/eventReducer';
 
 const EventSignUpList = () => {
   const eventAttendees = useSelector(selectAttendees);
